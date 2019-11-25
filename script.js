@@ -7,6 +7,11 @@ $(document).ready(function() {
   var deg = 0;
   var $card, $cardReject, $cardLike;
 
+  var score = 0;
+  var devTab = [1, 2];
+  var commercialTab = [3, 4];
+  var graphisteTab = [5, 6];
+
   function pullChange() {
     animating = true;
     deg = pullDeltaX / 10;
@@ -25,7 +30,7 @@ $(document).ready(function() {
   function release() {
     if (pullDeltaX >= decisionVal) {
       $card.addClass("to-right");
-      // console.log($card);
+      findIdhtmlElement($card);
       // on like
     } else if (pullDeltaX <= -decisionVal) {
       $card.addClass("to-left");
@@ -145,6 +150,34 @@ $(document).ready(function() {
     console.log(divDemo);
   }
 
-  function setScore() {}
+  function scorePlus() {
+    score++;
+  }
+
+  function checkPerson(id) {
+    devTab.forEach(elem => {
+      if (elem == id) {
+        return true;
+      }
+    });
+    commercialTab.forEach(elem => {
+      if (elem == id) {
+        return true;
+      }
+    });
+    graphisteTab.forEach(elem => {
+      if (elem == id) {
+        return true;
+      }
+    });
+
+    return false;
+  }
+
+  function findIdhtmlElement(element) {
+    var str = element.context.innerHTML;
+    var char = str.split("");
+    console.log(char[97]);
+  }
   setAllCards();
 });
