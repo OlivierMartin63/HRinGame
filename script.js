@@ -8,6 +8,10 @@ $(document).ready(function() {
   var $card, $cardReject, $cardLike;
 
   var score = 0;
+  var nbSubject = 3;
+  var subjectSelected = 0;
+  var gameLaucnhed = false;
+  var subject = ["Graphiste", "Développeur", "Commercial"];
   var devTab = [1, 2];
   var commercialTab = [3, 4];
   var graphisteTab = [5, 6];
@@ -30,10 +34,12 @@ $(document).ready(function() {
   function release() {
     if (pullDeltaX >= decisionVal) {
       $card.addClass("to-right");
-      findIdhtmlElement($card);
+      likedCard($card);
+      // findIdhtmlElement($card);
       // on like
     } else if (pullDeltaX <= -decisionVal) {
       $card.addClass("to-left");
+      dislikedCard($card);
       // on dislike
     }
 
@@ -154,30 +160,85 @@ $(document).ready(function() {
     score++;
   }
 
-  function checkPerson(id) {
+  function checkIsDeveloper(id) {
     devTab.forEach(elem => {
       if (elem == id) {
         return true;
       }
     });
+    return false;
+  }
+
+  function checkIsCommercial(id) {
     commercialTab.forEach(elem => {
       if (elem == id) {
         return true;
       }
     });
+    return false;
+  }
+
+  function checkIsGraphiste(id) {
     graphisteTab.forEach(elem => {
       if (elem == id) {
         return true;
       }
     });
-
     return false;
   }
 
   function findIdhtmlElement(element) {
     var str = element.context.innerHTML;
     var char = str.split("");
-    console.log(char[97]);
+    return char[97];
   }
+
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+
+  function setGame() {
+    subjectSelected = getRandomInt(nbSubject);
+    document.getElementById("subject").innerText = subject[subjectSelected];
+    score = 0;
+    launchTimer();
+    gameLaucnhed = true;
+  }
+
+  function checkValue() {}
+
+  function launchTimer() {
+    var timeleft = 60;
+    var downloadTimer = setInterval(function() {
+      document.getElementById("countdown").innerHTML =
+        timeleft + " secondes restantes !";
+      timeleft -= 1;
+      if (timeleft <= 0) {
+        clearInterval(downloadTimer);
+        document.getElementById("countdown").innerHTML = "Fini !";
+        endGame();
+      }
+    }, 1000);
+  }
+
+  function endGame() {
+    gameLaucnhed = false;
+  }
+
+  function likedCard(card) {
+    var id = findIdhtmlElement(card);
+
+    switch (subjectSelected) {
+      case 0:
+      // Graphiste
+
+      case 1:
+      //développeur
+      case 2:
+      // commercial
+    }
+  }
+
   setAllCards();
+  setGame();
 });
