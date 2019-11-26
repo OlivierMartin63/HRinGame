@@ -1,16 +1,33 @@
 var score = 0;
 var nbSubject = 3;
 var subjectSelected = 0;
-var gameLaucnhed = false;
+var gameLaunched = false;
 var subject = ["Graphiste", "Développeur", "Commercial"];
-var devTab = ["1", "2"];
-var commercialTab = ["3", "4"];
-var graphisteTab = ["5", "6"];
+var devTab = [
+  "Louise",
+  "Gabriel",
+  "Louis",
+  "Jules",
+  "Léa",
+  "Chloé",
+  "Anna",
+  "Ambre"
+];
+var commercialTab = [
+  "Maël",
+  "Hugo",
+  "Jade",
+  "Alice",
+  "Raphaël",
+  "Camille",
+  "Pauline"
+];
+var graphisteTab = ["Arthur", "Léo", "Lucas", "Nathan", "Emma"];
 
 $(document).ready(function() {
   var animating = false;
   var cardsCounter = 0;
-  var numOfCards = 6;
+  var numOfCards = 20;
   var decisionVal = 80;
   var pullDeltaX = 0;
   var deg = 0;
@@ -34,13 +51,14 @@ $(document).ready(function() {
   function release() {
     if (pullDeltaX >= decisionVal) {
       $card.addClass("to-right");
-      likedCard($card);
-      // findIdhtmlElement($card);
-      // on like
+      if (gameLaunched) {
+        likedCard($card);
+      }
     } else if (pullDeltaX <= -decisionVal) {
       $card.addClass("to-left");
-      dislikedCard($card);
-      // on dislike
+      if (gameLaunched) {
+        dislikedCard($card);
+      }
     }
 
     if (Math.abs(pullDeltaX) >= decisionVal) {
@@ -92,6 +110,10 @@ $(document).ready(function() {
     $(document).on("mouseup touchend", function() {
       $(document).off("mousemove touchmove mouseup touchend");
       if (!pullDeltaX) return; // prevents from rapid click events
+      // if (!gameLaunched) {
+      //   alert("Veuillez lancer le jeu svp.");
+      //   return;
+      // }
       release();
     });
   });
@@ -105,6 +127,10 @@ $(document).ready(function() {
     divDemoCardTop.setAttribute("class", "demo__card__top lime");
     var divDemoCardImg = document.createElement("div");
     divDemoCardImg.setAttribute("class", "demo__card__img");
+    divDemoCardImg.style.backgroundImage =
+      "url('https://workshop-i2-hringame.s3.eu-west-3.amazonaws.com/webapp-images/personnes/people" +
+      imgSrc +
+      ".jpg')";
     var divDemoCardName = document.createElement("p");
     divDemoCardName.setAttribute("class", "demo__card__name");
     divDemoCardName.innerText = name; // initialisation du nom
@@ -145,79 +171,86 @@ $(document).ready(function() {
 
   function setAllCards() {
     var divDemo = document.getElementById("tabCard");
-    divDemo.appendChild(createCard("1", "", "dev"));
-    divDemo.appendChild(createCard("2", "", "dev"));
-    divDemo.appendChild(createCard("3", "", "commercial"));
-    divDemo.appendChild(createCard("4", "", "commercial"));
-    divDemo.appendChild(createCard("5", "", "graphiste"));
-    divDemo.appendChild(createCard("6", "", "graphiste"));
-    // divDemo.appendChild(createCard("5", "", "RGPD"));
-    // divDemo.appendChild(createCard("6", "", "Femme de ménage"));
-    console.log(divDemo);
+    divDemo.appendChild(createCard("Jules", "1", "C++, Java, Dropwizard"));
+    divDemo.appendChild(
+      createCard("Louis", "2", "HTML, CSS, Bootstrap, Angular")
+    );
+    divDemo.appendChild(createCard("Gabriel", "3", "SQL, PowerBI, Talend"));
+    divDemo.appendChild(
+      createCard("Raphaël", "4", "Vendeur chez Volvo pendant 2 ans")
+    );
+    divDemo.appendChild(createCard(" Maël ", "5", "à l'aise en comptabilité"));
+    divDemo.appendChild(createCard(" Arthur ", "6", "Photoshop, Gimp"));
+    divDemo.appendChild(createCard(" Hugo ", "7", "Excel"));
+    divDemo.appendChild(createCard(" Léo ", "8", "Photoshop, Balsamiq"));
+    divDemo.appendChild(createCard(" Lucas ", "9", "inDesign, Word"));
+    divDemo.appendChild(createCard(" Nathan ", "10", "Photoshop, Illustrator"));
+    divDemo.appendChild(createCard(" Emma ", "11", "Photoshop, Illustrator"));
+    divDemo.appendChild(createCard(" Jade ", "12", "Excel, PowerPoint, Word"));
+    divDemo.appendChild(createCard(" Alice ", "13", "Excel, PowerPoint, Word"));
+    divDemo.appendChild(createCard(" Louise ", "14", "Ionic, Kotlin, Swift"));
+    divDemo.appendChild(createCard(" Léa ", "15", "C++, Java"));
+    divDemo.appendChild(createCard(" Chloé ", "16", "C#, XAML"));
+    divDemo.appendChild(createCard(" Camille ", "17", "inDesign, Illustrator"));
+    divDemo.appendChild(createCard(" Anna ", "18", "Ionic, Angular"));
+    divDemo.appendChild(createCard(" Ambre ", "19", "HTML, CSS, JavaScript"));
+    divDemo.appendChild(
+      createCard(" Pauline ", "20", "Excel, Word Power Point")
+    );
   }
 
   function checkIsDeveloper(id) {
+    var res = false;
     devTab.forEach(elem => {
       if (elem == id) {
-        return true;
+        res = true;
       }
     });
-    return false;
+    return res;
   }
 
   function checkIsCommercial(id) {
+    var res = false;
     commercialTab.forEach(elem => {
       if (elem == id) {
-        return true;
+        res = true;
       }
     });
-    return false;
+    return res;
   }
 
   function checkIsGraphiste(id) {
+    var res = false;
     graphisteTab.forEach(elem => {
-      console.log(elem);
-      if (elem.toString() == id.toString()) {
-        return true;
+      if (elem == id) {
+        res = true;
       }
     });
-    return false;
+    return res;
   }
 
   function findIdhtmlElement(element) {
     var str = element.context.innerHTML;
-    var char = str.split("");
-    return char[97];
-  }
-
-  function endGame() {
-    gameLaucnhed = false;
+    var char = str.split(" ");
+    return char[7];
   }
 
   function likedCard(card) {
     var id = findIdhtmlElement(card);
-    console.log("id card liké : " + id);
-    console.log("sujet sélectionné : " + subjectSelected);
 
     switch (subjectSelected) {
       case 0:
-        console.log("graphiste" + checkIsGraphiste(id));
         if (checkIsGraphiste(id)) {
-          console.log("ok graph");
           score++;
         }
         break;
       case 1:
-        console.log("dev");
         if (checkIsDeveloper(id)) {
-          console.log("ok dev");
           score++;
         }
         break;
       case 2:
-        console.log("commercial");
         if (checkIsCommercial(id)) {
-          console.log("ok commercial");
           score++;
         }
         break;
@@ -227,7 +260,6 @@ $(document).ready(function() {
 
   function dislikedCard(card) {
     var id = findIdhtmlElement(card);
-    console.log(id);
 
     switch (subjectSelected) {
       case 0: // Graphiste
@@ -255,10 +287,12 @@ $(document).ready(function() {
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
-
+var downloadTimer;
 function launchTimer() {
   var timeleft = 60;
-  var downloadTimer = setInterval(function() {
+
+  clearInterval(downloadTimer);
+  downloadTimer = setInterval(function() {
     document.getElementById("countdown").innerHTML =
       timeleft + " secondes restantes !";
     timeleft -= 1;
@@ -275,5 +309,10 @@ function setGame() {
   document.getElementById("subject").innerText = subject[subjectSelected];
   score = 0;
   launchTimer();
-  gameLaucnhed = true;
+  gameLaunched = true;
+}
+
+function endGame() {
+  gameLaunched = false;
+  document.getElementById("scoreId").innerText = score;
 }

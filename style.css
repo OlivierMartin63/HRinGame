@@ -114,7 +114,7 @@ body {
   border-radius: 50%;
   border: 0.5rem solid #ffffff;
   /* background-image: url("//s3-us-west-2.amazonaws.com/s.cdpn.io/142996/profile/profile-512_5.jpg"); */
-  background-image: url("https://workshop-i2-hringame.s3.eu-west-3.amazonaws.com/webapp-images/avatar.png");
+  /* background-image: url("https://workshop-i2-hringame.s3.eu-west-3.amazonaws.com/webapp-images/avatar.png"); */
   background-size: cover;
 }
 .demo__card__name {
