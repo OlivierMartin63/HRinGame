@@ -1,3 +1,12 @@
+var score = 0;
+var nbSubject = 3;
+var subjectSelected = 0;
+var gameLaucnhed = false;
+var subject = ["Graphiste", "Développeur", "Commercial"];
+var devTab = ["1", "2"];
+var commercialTab = ["3", "4"];
+var graphisteTab = ["5", "6"];
+
 $(document).ready(function() {
   var animating = false;
   var cardsCounter = 0;
@@ -6,15 +15,6 @@ $(document).ready(function() {
   var pullDeltaX = 0;
   var deg = 0;
   var $card, $cardReject, $cardLike;
-
-  var score = 0;
-  var nbSubject = 3;
-  var subjectSelected = 0;
-  var gameLaucnhed = false;
-  var subject = ["Graphiste", "Développeur", "Commercial"];
-  var devTab = [1, 2];
-  var commercialTab = [3, 4];
-  var graphisteTab = [5, 6];
 
   function pullChange() {
     animating = true;
@@ -145,19 +145,15 @@ $(document).ready(function() {
 
   function setAllCards() {
     var divDemo = document.getElementById("tabCard");
-    divDemo.appendChild(createCard("1", "", "JAVA"));
-    divDemo.appendChild(createCard("2", "", "juriste"));
-    divDemo.appendChild(createCard("3", "", "secrétaire"));
-    divDemo.appendChild(createCard("4", "", "C#"));
-    divDemo.appendChild(createCard("5", "", "C"));
-    divDemo.appendChild(createCard("6", "", "HTML"));
+    divDemo.appendChild(createCard("1", "", "dev"));
+    divDemo.appendChild(createCard("2", "", "dev"));
+    divDemo.appendChild(createCard("3", "", "commercial"));
+    divDemo.appendChild(createCard("4", "", "commercial"));
+    divDemo.appendChild(createCard("5", "", "graphiste"));
+    divDemo.appendChild(createCard("6", "", "graphiste"));
     // divDemo.appendChild(createCard("5", "", "RGPD"));
     // divDemo.appendChild(createCard("6", "", "Femme de ménage"));
     console.log(divDemo);
-  }
-
-  function scorePlus() {
-    score++;
   }
 
   function checkIsDeveloper(id) {
@@ -180,7 +176,8 @@ $(document).ready(function() {
 
   function checkIsGraphiste(id) {
     graphisteTab.forEach(elem => {
-      if (elem == id) {
+      console.log(elem);
+      if (elem.toString() == id.toString()) {
         return true;
       }
     });
@@ -193,52 +190,90 @@ $(document).ready(function() {
     return char[97];
   }
 
-  function getRandomInt(max) {
-    return Math.floor(Math.random() * Math.floor(max));
-  }
-
-  function setGame() {
-    subjectSelected = getRandomInt(nbSubject);
-    document.getElementById("subject").innerText = subject[subjectSelected];
-    score = 0;
-    launchTimer();
-    gameLaucnhed = true;
-  }
-
-  function checkValue() {}
-
-  function launchTimer() {
-    var timeleft = 60;
-    var downloadTimer = setInterval(function() {
-      document.getElementById("countdown").innerHTML =
-        timeleft + " secondes restantes !";
-      timeleft -= 1;
-      if (timeleft <= 0) {
-        clearInterval(downloadTimer);
-        document.getElementById("countdown").innerHTML = "Fini !";
-        endGame();
-      }
-    }, 1000);
-  }
-
   function endGame() {
     gameLaucnhed = false;
   }
 
   function likedCard(card) {
     var id = findIdhtmlElement(card);
+    console.log("id card liké : " + id);
+    console.log("sujet sélectionné : " + subjectSelected);
 
     switch (subjectSelected) {
       case 0:
-      // Graphiste
-
+        console.log("graphiste" + checkIsGraphiste(id));
+        if (checkIsGraphiste(id)) {
+          console.log("ok graph");
+          score++;
+        }
+        break;
       case 1:
-      //développeur
+        console.log("dev");
+        if (checkIsDeveloper(id)) {
+          console.log("ok dev");
+          score++;
+        }
+        break;
       case 2:
-      // commercial
+        console.log("commercial");
+        if (checkIsCommercial(id)) {
+          console.log("ok commercial");
+          score++;
+        }
+        break;
     }
+    console.log(score);
+  }
+
+  function dislikedCard(card) {
+    var id = findIdhtmlElement(card);
+    console.log(id);
+
+    switch (subjectSelected) {
+      case 0: // Graphiste
+        if (checkIsDeveloper(id) || checkIsCommercial(id)) {
+          score++;
+        }
+        break;
+      case 1: // Développeur
+        if (checkIsGraphiste(id) || checkIsCommercial(id)) {
+          score++;
+        }
+        break;
+      case 2: // Commercial
+        if (checkIsDeveloper(id) || checkIsGraphiste(id)) {
+          score++;
+        }
+        break;
+    }
+    console.log(score);
   }
 
   setAllCards();
-  setGame();
 });
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+function launchTimer() {
+  var timeleft = 60;
+  var downloadTimer = setInterval(function() {
+    document.getElementById("countdown").innerHTML =
+      timeleft + " secondes restantes !";
+    timeleft -= 1;
+    if (timeleft <= 0) {
+      clearInterval(downloadTimer);
+      document.getElementById("countdown").innerHTML = "Fini !";
+      endGame();
+    }
+  }, 1000);
+}
+
+function setGame() {
+  subjectSelected = getRandomInt(nbSubject);
+  document.getElementById("subject").innerText = subject[subjectSelected];
+  score = 0;
+  launchTimer();
+  gameLaucnhed = true;
+}
