@@ -14,7 +14,7 @@ body {
   background: #63bdf7;
   overflow: hidden;
 }
-.title {  
+.title {
   color: #fff;
   font-size: 3rem;
   text-align: center;
@@ -26,12 +26,12 @@ body {
   width: 30.6rem;
   height: 54rem;
   margin-left: -15.3rem;
-  margin-top: -27rem;
+  margin-top: -24rem;
   background: #f6f6f5;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
 }
 .demo__header {
-  height: 6rem;
+  height: 9rem;
   background: #002942;
 }
 .demo__content {
@@ -191,4 +191,23 @@ body {
 .demo__tip {
   text-align: center;
   font-size: 2.2rem;
+}
+
+.coeur {
+  margin: 20px 0px;
+}
+
+.btn-lg {
+  width: 200px;
+  height: 50px;
+  font-size: 20px;
+}
+
+.scoreBoard {
+  margin: 40px 0 0 40px;
+}
+
+.resScore {
+  position: absolute;
+  bottom: 100px;
 }

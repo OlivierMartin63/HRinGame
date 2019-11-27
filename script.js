@@ -152,7 +152,7 @@ $(document).ready(function() {
     divDemoCardDrag.setAttribute("class", "demo__card__drag");
     var divSwipInfo = document.createElement("p");
     divSwipInfo.setAttribute("class", "demo__tip");
-    divSwipInfo.innerText = "Swiper à droite ou à gauche";
+    divSwipInfo.innerHTML = "<h2>Swiper à droite ou à gauche</h1>";
 
     divDemoCardTop.appendChild(divDemoCardImg);
     divDemoCardTop.appendChild(divDemoCardName);
@@ -165,7 +165,6 @@ $(document).ready(function() {
     divDemoCard.appendChild(divDemoCardChoiceLike);
     divDemoCard.appendChild(divDemoCardDrag);
     divDemoCard.appendChild(divSwipInfo);
-
 
     return divDemoCard;
   }
@@ -290,7 +289,7 @@ function getRandomInt(max) {
 }
 var downloadTimer;
 function launchTimer() {
-  var timeleft = 60;
+  var timeleft = 30;
 
   clearInterval(downloadTimer);
   downloadTimer = setInterval(function() {
@@ -307,7 +306,8 @@ function launchTimer() {
 
 function setGame() {
   subjectSelected = getRandomInt(nbSubject);
-  document.getElementById("subject").innerText = subject[subjectSelected];
+  document.getElementById("subject").innerText =
+    "Trouver un " + subject[subjectSelected];
   score = 0;
   launchTimer();
   gameLaunched = true;
