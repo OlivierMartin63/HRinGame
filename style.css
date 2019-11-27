@@ -126,11 +126,11 @@ body {
 .demo__card__btm {
   height: 11.5rem;
   background: #ffffff;
+  margin-top: 10px;
 }
 .demo__card__we {
   text-align: center;
   font-size: 2.2rem;
-  line-height: 11.5rem;
 }
 .demo__card__choice {
   position: absolute;

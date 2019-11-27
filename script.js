@@ -152,7 +152,7 @@ $(document).ready(function() {
     divDemoCardDrag.setAttribute("class", "demo__card__drag");
     var divSwipInfo = document.createElement("p");
     divSwipInfo.setAttribute("class", "demo__tip");
-    divSwipInfo.innerText = "swiper à droite ou à gauche";
+    divSwipInfo.innerText = "Swiper à droite ou à gauche";
 
     divDemoCardTop.appendChild(divDemoCardImg);
     divDemoCardTop.appendChild(divDemoCardName);
@@ -165,6 +165,7 @@ $(document).ready(function() {
     divDemoCard.appendChild(divDemoCardChoiceLike);
     divDemoCard.appendChild(divDemoCardDrag);
     divDemoCard.appendChild(divSwipInfo);
+
 
     return divDemoCard;
   }
