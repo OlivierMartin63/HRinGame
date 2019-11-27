@@ -10,12 +10,15 @@ html,
 body {
   font-size: 62.5%;
 }
-
 body {
   background: #63bdf7;
   overflow: hidden;
 }
-
+.title {  
+  color: #fff;
+  font-size: 3rem;
+  text-align: center;
+}
 .demo {
   position: absolute;
   left: 50%;
